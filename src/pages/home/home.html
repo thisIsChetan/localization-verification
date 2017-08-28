@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button (click)="XLStoJSON()" >Generate </button>
+  <ion-grid  *ngFor="let card of json">
+  <ion-row>
+    <ion-col col-6>{{card.Key}}</ion-col>
+    <ion-col col-6>{{card["English Text"]}}</ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>
