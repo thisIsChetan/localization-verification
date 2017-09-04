@@ -5,13 +5,54 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-
+<a id="downloadAnchorElem" style="display:none"></a>
 <ion-content padding>
-  <button (click)="XLStoJSON()" >Generate </button>
-  <ion-grid  *ngFor="let card of json">
-  <ion-row>
-    <ion-col col-6>{{card.Key}}</ion-col>
-    <ion-col col-6>{{card["English Text"]}}</ion-col>
-  </ion-row>
-</ion-grid>
+  <ion-item>
+    <input type='file'  (change)="loadFile($event)" />
+  </ion-item>
+  <ion-item>
+    <input type='file'  (change)="loadXlsFile($event)" />
+  </ion-item>  
+  <ion-item>
+    <button ion-button (click)="comapreData()">Compare</button>
+  </ion-item> 
+  <ion-item>
+    <button ion-button color="danger" (click)="exportFile()">Export</button>
+  </ion-item>  
+
+  <div padding>
+    <ion-segment [(ngModel)]="visibleCard">
+      <ion-segment-button value="missingData">
+        <ion-badge color="dark">{{count.missing}}</ion-badge>
+        Missing
+      </ion-segment-button>
+      <ion-segment-button value="availableData">
+        <ion-badge color="secondary">{{count.ok}}</ion-badge>
+        OK
+      </ion-segment-button>
+      <ion-segment-button value="availableDataError">
+        <ion-badge color="danger">{{count.error}}</ion-badge>
+        Error
+      </ion-segment-button>      
+      <!--<ion-segment-button value="extraData">
+        extraData
+      </ion-segment-button>-->
+    </ion-segment>
+  </div>
+    <ion-card *ngFor="let card of comparedData[visibleCard]">
+      <ion-card-header>
+        {{card.key}}
+      </ion-card-header>
+      <ion-card-content>
+        <p>English: {{card.refValue}}</p>
+        <p>New: {{card.newValue}}</p>
+        <p>
+          <ion-badge *ngFor="let check of card.refCheckValues" [color]="check.newValue!=check.refValue?'danger':'light'">
+            {{check.key}} : {{check.refValue}} {{check.newValue}} 
+          </ion-badge>
+        <p>
+      </ion-card-content>
+
+    </ion-card>
+
 </ion-content>

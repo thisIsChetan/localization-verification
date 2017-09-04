@@ -25198,3 +25198,14 @@ ion-navbar.toolbar {
     padding-top: calc(16px + 20px);
   }
 }
+
+body {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+page-home ion-badge {
+  margin: 5px;
+}
